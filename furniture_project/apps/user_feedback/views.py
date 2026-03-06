@@ -39,7 +39,7 @@ class OrderCreateForm(forms.ModelForm):
 class OrderView(CreateView):
     template_name = "user/order_form.html"
     form_class = OrderCreateForm
-    success_url = "user:success"
+    success_url = "user:order"
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -48,7 +48,7 @@ class OrderView(CreateView):
         return super().form_valid(form)
     
     def get_success_url(self):
-        return reverse_lazy("user:success")
+        return reverse_lazy("user:order")
     
 class AddCommentForm(forms.ModelForm):
     class Meta:
@@ -58,7 +58,7 @@ class AddCommentForm(forms.ModelForm):
 class CommentView(CreateView):
     template_name = "user/comment.html"
     form_class = AddCommentForm
-    success_url = "user:comment_success.html"
+    success_url = "user:comment.html"
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -67,4 +67,4 @@ class CommentView(CreateView):
         return super().form_valid(form)
     
     def get_success_url(self):
-        return reverse_lazy("user:comment_success.html")
+        return reverse_lazy("user:comment.html")
