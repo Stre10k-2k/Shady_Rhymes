@@ -8,5 +8,5 @@ from .views import(
 urlpatterns =[
     path("", HomeView.as_view(), name='home'),
     path("products/", ProductView.as_view(), name="product"),
-    path("product/<slugify:slugify>", ProductDetailView.as_view(), name="product_detail")
+    path("product/<slug:slugify>", ProductDetailView.as_view(), name="product_detail")
 ]
