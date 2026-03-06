@@ -24,7 +24,7 @@ class HomeView(TemplateView):
 
         return ctx
 
-class ProductViews(ListView):
+class ProductView(ListView):
     template_name = 'core/products.html'
     context_object_name = 'product'
     paginate_by = 12
