@@ -1,7 +1,24 @@
 from django.db import models
 from django.utils.text import slugify
     
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base = slugify(self.name)[:100] or self.name
+            candidate_slug = base
+            i = 1
+            while Product.objects.filter(slugify=candidate_slug).exists:
+                candidate_slug = f'{base}{i}'
+                i += 1
+            self.slugify = candidate_slug
+
+        super().save(*args, **kwargs)
+
 class Product(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)

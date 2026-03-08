@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+{% block content %}
+<section class="reasons">
+    <h1 class="reasons_title">Why Choosing Us</h1>
+    <ul class="reasons_list">
+        <li class="reasons_item">
+            <div class="reason_img_container">
+                <img class="reason_img" src="{% static '/imgs/rason-1.png' %}" alt="">
+            </div>
+            <h1 class="reason_title">Professionalism</h1>
+            <p class="reason_subtitle">We deliver the final work with great <br> professional way.</p>
+            <a class="reason_link" href="">more info</a>
+        </li>
+        <li class="reasons_item">
+            <div class="reason_img_container">
+                <img class="reason_img" src="{% static '/imgs/rason-2.png' %}" alt="">
+            </div>
+            <h1 class="reason_title">Smooth workflow</h1>
+            <p class="reason_subtitle">We provide the most easy smoth workflow <br> of interior design.</p>
+            <a class="reason_link" href="">more info</a>
+        </li>
+        <li class="reasons_item">
+            <div class="reason_img_container">
+                <img class="reason_img" src="{% static '/imgs/rason-3.png' %}" alt="">
+            </div>
+            <h1 class="reason_title">Trusted Platform</h1>
+            <p class="reason_subtitle">People trust us since we openend the <br> company</p>
+            <a class="reason_link" href="">more info</a>
+        </li>
+        <li class="reasons_item">
+            <div class="reason_img_container">
+                <img class="reason_img" src="{% static '/imgs/rason-4.png' %}" alt="">
+            </div>
+            <h1 class="reason_title">Qualified employee</h1>
+            <p class="reason_subtitle">Our employees are the best of the field <br> from the city</p>
+            <a class="reason_link" href="">more info</a>
+        </li>
+    </ul>
+</section>
+<section class="categories">
+    <div class="first_catigories_half">
+        <h1 class="category_title">Visualize your ideas with us</h1>
+        <p class="category_subtitle">We are ready to help you build and also realize the room design that you dream of, with <br> our experts and also the best category recommendations from us</p>
+        <div>
+            {% for i in random_cat %}
+                <a href="" class="category_name">{{ i.name }}</a>
+            {% empty %}
+                <p class="category_name">There's no categories yet</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="second_category_half">
+        <img class="second_half_img" src="{% static '/imgs/category.png' %}" alt="">
+    </div>
+</section>
+<section class="products_section">
+    <h1 class="products_section_title">Products</h1>
+    <ul>
+        {% for i in random_obj %}
+            <li>
+                <img src="" alt="">
+                <div>
+                    <h1></h1>
+                    <p></p>
+                    <p></p>
+                </div>
+            </li>
+        {% empty %}
+        {% endfor %}
+    </ul>
+</section>
+{% endblock content %}

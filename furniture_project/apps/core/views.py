@@ -1,15 +1,15 @@
 import random
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import Product
-from django.db.models import Q
+from .models import Product, Category
+from apps.user_feedback.models import Feedback
 
 class HomeView(TemplateView):
     template_name = 'core/home.html'
 
-    def get_context_data(self, **kwargs):
+    def get_cataloge_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         qs = Product.objects.filter(
-            Q(is_activate__icontaims = True)
+            Product.is_active == True
         )
 
         ids = list(qs.values_list("id", flat=True)[:200])
@@ -21,6 +21,40 @@ class HomeView(TemplateView):
         random_obj.sort(key=lambda x: random_ids.index(x.id))
 
         ctx["random_obj"] = random_obj
+
+        return ctx
+    
+    def get_category_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        qs = Category.objects.all()
+
+        ids = list(qs.values_list("id", flat=True)[:200])
+        random_ids = random.sample(ids, min(len(ids), 4)) if ids else []
+        random_cat = list(
+            Product.objects.filter(ids__in=random_ids)
+        )
+
+        random_cat.sort(key=lambda x: random_ids.index(x.id))
+
+        ctx["random_cat"] = random_cat
+
+        return ctx
+    
+    def get_feedback_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        qs = Feedback.objects.filter(
+            Feedback.is_aprove == True
+        )
+
+        ids = list(qs.values_list("id", flat=True)[:200])
+        random_ids = random.sample(ids, min(len(ids), 3)) if ids else []
+        random_com = list(
+            Feedback.objects.filter(ids__in=random_ids)
+        )
+
+        random_com.sort(key=lambda x: random_ids.index(x.id))
+
+        ctx["random_com"] = random_com
 
         return ctx
 
