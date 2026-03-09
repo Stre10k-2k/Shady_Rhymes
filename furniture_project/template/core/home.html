@@ -44,7 +44,7 @@
     <div class="first_catigories_half">
         <h1 class="category_title">Visualize your ideas with us</h1>
         <p class="category_subtitle">We are ready to help you build and also realize the room design that you dream of, with <br> our experts and also the best category recommendations from us</p>
-        <div>
+        <div class="random_catigories">
             {% for i in random_cat %}
                 <a href="" class="category_name">{{ i.name }}</a>
             {% empty %}
@@ -58,18 +58,43 @@
 </section>
 <section class="products_section">
     <h1 class="products_section_title">Products</h1>
-    <ul>
+    <ul class="">
         {% for i in random_obj %}
             <li>
                 <img src="" alt="">
                 <div>
-                    <h1></h1>
-                    <p></p>
-                    <p></p>
+                    <h1>{{i.name}}</h1>
+                    <p>{{i.rating}}</p>
+                    <p>{{i.price}}$</p>
                 </div>
+            </li>
+        {% empty %}
+            <p>There isn't any products yet</p>
+        {% endfor %}
+    </ul>
+</section>
+<section class="feedback_section">
+    <h1 class="feedback_title">what they say about our services</h1>
+    <ul class="feedback_list">
+        {% for i in random_com %}
+            <li class="comment">
+                <h1 class="comment_title">{{i.title}}</h1>
+                <p class="comment_subtitle">{{i.message}}</p>
+                <h2 class="commentator_name">{{i.name}}</h2>
+                <h3 class="commentator_role">{{i.role}}</h2>
             </li>
         {% empty %}
         {% endfor %}
     </ul>
+</section>
+<section class="contact_section">
+    <div class="contact_first_half">
+        <img class="contact_img" src="{% static '/imgs/contact_img.png' %}" alt="">
+    </div>
+    <div class="contact_second_half">
+        <h1 class="contact_title">Make your room feel homey</h1>
+        <p class="contact_subtitle">We help people not only to make the room at home better, but we help people to feel a <br> more homey and comfortable room, you don’t have to worry about the result because of <br> these interiors are made by people who are professionals in their dields with an elegant <br> and lucuriois style and with premium quality materials</p>
+        <p class="contact_subtitle">Contact us if you are interested in working with us</p>
+    </div>
 </section>
 {% endblock content %}

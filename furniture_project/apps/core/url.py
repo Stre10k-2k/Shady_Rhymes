@@ -5,6 +5,8 @@ from .views import(
     ProductDetailView
 )
 
+app_name = "core"
+
 urlpatterns =[
     path("", HomeView.as_view(), name='home'),
     path("products/", ProductView.as_view(), name="product"),

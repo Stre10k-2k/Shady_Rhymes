@@ -5,6 +5,8 @@ from .views import(
     CommentView
 )
 
+app_name = "user_feedback"
+
 urlpatterns = [
     path("cart/", CartView.as_view, name="cart"),
     path("order/", OrderView.as_view(), name="order"),

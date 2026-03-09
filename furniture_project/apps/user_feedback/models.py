@@ -36,6 +36,7 @@ class Order(models.Model):
         return f'{self.first_name} {self.product}'
     
 class Feedback(models.Model):
+    title = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
     role = models.TextField(blank=True)
     message = models.TextField()

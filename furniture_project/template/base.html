@@ -16,17 +16,17 @@
     <img src="{% static '/imgs/bg-1.png' %}" class="header_bg">
     <header>
         <nav class="base_nav">
-            <a class="home_link" href="#">
+            <a class="home_link" href="{% url 'core:home' %}">
                 <img class="home_img" src="{% static '/imgs/logo.png' %}" alt="">
             </a>
             <ul class="nav_list">
-                <li class="nav_item"><a class="nav_link" href="">Feedback</a></li>
-                <li class="nav_item"><a class="nav_link" href="">Shop</a></li>
+                <li class="nav_item"><a class="nav_link" href="{% url 'user_feedback:comment' %}">Feedback</a></li>
+                <li class="nav_item"><a class="nav_link" href="{% url 'core:product' %}">Shop</a></li>
                 <li class="nav_item"><a class="nav_link" href="">About Us</a></li>
                 <li class="nav_item"><a class="nav_link" href="">Contact</a></li>
             </ul>
-            <a class="cart_link" href="">
-                <i class="fa-solid fa-bag-shopping"></i>
+            <a class="cart_link" href="{% url 'user_feedback:cart' %}">
+                <i class="cart_img fa-solid fa-bag-shopping"></i>
             </a>
         </nav>
         <section class="header_section">

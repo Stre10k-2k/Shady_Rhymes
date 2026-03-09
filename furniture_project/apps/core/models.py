@@ -1,24 +1,28 @@
 from django.db import models
 from django.utils.text import slugify
+
     
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            base = slugify(self.name)[:100] or self.name
+        if not self.slugify:
+            base = slugify(self.name)[:100] or 'category'
             candidate_slug = base
             i = 1
-            while Product.objects.filter(slugify=candidate_slug).exists:
+            while Category.objects.filter(slugify=candidate_slug).exists():
                 candidate_slug = f'{base}{i}'
                 i += 1
             self.slugify = candidate_slug
 
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return f'{self.name}'
+
 class Product(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, null=True, blank=True)
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -29,10 +33,10 @@ class Product(models.Model):
     slugify = models.SlugField(unique=True, blank=True)
     def save(self, *args, **kwargs):
         if not self.slugify:
-            base = slugify(self.name)[:100] or self.name
+            base = slugify(self.name)[:100] or 'product'
             candidate_slug = base
             i = 1
-            while Product.objects.filter(slugify=candidate_slug).exists:
+            while Product.objects.filter(slugify=candidate_slug).exists():
                 candidate_slug = f'{base}{i}'
                 i += 1
             self.slugify = candidate_slug
@@ -40,4 +44,4 @@ class Product(models.Model):
         super().save(*args, **kwargs)
     
     def __str__(self):
-        return f'self.name'
+        return f'{self.name}'
