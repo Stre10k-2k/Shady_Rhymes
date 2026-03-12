@@ -22,8 +22,6 @@ class HomeView(TemplateView):
 
         ctx["random_obj"] = random_obj
 
-        print(ids)
-
         return ctx
     
     def get_context_data(self, **kwargs):
@@ -49,30 +47,22 @@ class HomeView(TemplateView):
 
         random_cat.sort(key=lambda x: random_ids2.index(x.id))
 
+        ctx = super().get_context_data(**kwargs)
+        qs = Feedback.objects.all()
+
+        ids3 = list(qs.values_list("id", flat=True)[:200])
+        random_ids3 = random.sample(ids3, min(len(ids3), 3)) if ids3 else []
+        random_com = list(
+            Feedback.objects.filter(id__in=random_ids3)
+        )
+
+        random_com.sort(key=lambda x: random_ids3.index(x.id))
+
+        ctx["random_com"] = random_com
         ctx["random_cat"] = random_cat
         ctx["random_obj"] = random_obj
 
-        print(ctx)
-
         return ctx
-    
-    # def get_context_data(self, **kwargs):
-    #     ctx = super().get_context_data(**kwargs)
-    #     qs = Feedback.objects.filter(
-    #         Feedback.is_aprove == True
-    #     )
-
-    #     ids = list(qs.values_list("id", flat=True)[:200])
-    #     random_ids = random.sample(ids, min(len(ids), 3)) if ids else []
-    #     random_com = list(
-    #         Feedback.objects.filter(ids__in=random_ids)
-    #     )
-
-    #     random_com.sort(key=lambda x: random_ids.index(x.id))
-
-    #     ctx["random_com"] = random_com
-
-    #     return ctx
 
 class ProductView(ListView):
     template_name = 'core/products.html'
@@ -87,3 +77,19 @@ class ProductDetailView(DetailView):
     model = Product
     slug_field = "slugify"
     slug_url_kwarg = "slugify"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        qs = Product.objects.all()
+
+        ids = list(qs.values_list("id", flat=True)[:200])
+        random_ids = random.sample(ids, min(len(ids), 3)) if ids else []
+        random_obj = list(
+            Product.objects.filter(id__in=random_ids)
+        )
+
+        random_obj.sort(key=lambda x: random_ids.index(x.id))
+
+        ctx["random_obj"] = random_obj
+
+        return ctx

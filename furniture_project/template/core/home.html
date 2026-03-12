@@ -3,6 +3,17 @@
 
 {% block title %}Home{% endblock title %}
 {% block content %}
+<img src="{% static '/imgs/bg-1.png' %}" class="header_bg">
+<section class="header_section">
+    <div class="header_container">
+        <h1 class="header_title">Make Your Interior More <br> Minimaistic & Modern</h1>
+        <p class="header_subtitle">Bringing interiors to life, understanding the person or people <br> living in a home is far greater need in design.</p>
+        <form class="search_form" method="post">
+                    <input class="searh_input" type="text" name="" id="" placeholder="Search furniture">
+            <button class="search_btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+    </div>
+</section>
 <section class="reasons">
     <h1 class="reasons_title">Why Choosing Us</h1>
     <ul class="reasons_list">
@@ -58,15 +69,19 @@
 </section>
 <section class="products_section">
     <h1 class="products_section_title">Products</h1>
-    <ul class="">
+    <ul class="products_list">
         {% for i in random_obj %}
-            <li>
-                <img src="" alt="">
-                <div>
-                    <h1>{{i.name}}</h1>
-                    <p>{{i.rating}}</p>
-                    <p>{{i.price}}$</p>
-                </div>
+            <li class="products_item">
+                <a href="{% url 'core:product_detail' i.slugify %}">
+                    <div class="products_img_container">
+                        <img class="products_image" src="{{i.image.url}}" alt="{{i.image.url}}">
+                    </div>
+                    <div class="products_content">
+                        <h1 class="products_name">{{i.name}}</h1>
+                        <p class="products_data">{{i.rating}}</p>
+                        <p class="products_data">{{i.price}}$</p>
+                    </div>
+                </a>
             </li>
         {% empty %}
             <p>There isn't any products yet</p>
