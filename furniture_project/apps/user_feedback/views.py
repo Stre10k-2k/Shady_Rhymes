@@ -91,18 +91,7 @@ class AddCommentForm(forms.ModelForm):
         model = Feedback
         fields = ["title", "name", "role", "message", "rating"]
 
-class CommentView(FormView, CreateView):
+class CommentView(CreateView):
     template_name = "user/comment.html"
     form_class = AddCommentForm
     success_url = reverse_lazy("core:home")
-    print("error")
-
-
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.save()
-
-        return super().form_valid(form)
-        
-    def get_success_url(self):
-            return reverse_lazy("core:home")
